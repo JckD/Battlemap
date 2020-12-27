@@ -9,7 +9,7 @@ import dragon from '../3Dfiles/red-dragon-ancient-updated.stl';
 import wall from '../3Dfiles/wall.stl';
 
 
-export default class CreateQuote extends Component {
+export default class LoadScene extends Component {
 
    
 
@@ -94,7 +94,7 @@ export default class CreateQuote extends Component {
             var material = new THREE.MeshPhongMaterial( { color: 0x757575 } );
             
             var mesh = new THREE.Mesh( geometry, material );
-            mesh.position.set( 50, -6, 50);
+            mesh.position.set( -20, -6, 40);
             mesh.rotation.x  = -90 * degree;
             mesh.rotation.z = 90 * degree
         
