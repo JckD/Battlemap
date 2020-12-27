@@ -12,6 +12,13 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import loadModel from '../utils/modelLoader.js';
 
+const ModelList = props => (
+    <ListItem 
+    button
+    >
+        {props.model.name}
+    </ListItem>
+)
 
 export default class sideBar extends Component {
 
@@ -19,9 +26,11 @@ export default class sideBar extends Component {
         super(props)
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.getModel = this.getModel.bind(this);
+        this.listModels = this.listModels.bind(this);
 
         this.state = {
-            sideBarOpen : true
+            sideBarOpen : true,
+            files : [],
         }
     }
 
@@ -31,9 +40,18 @@ export default class sideBar extends Component {
         })
     }
 
-    getModel() {
-        //const selectedFile = document.getElementById('input').files[0];
-       // loadModel(selectedFile);
+    getModel(e) {
+        var files = e.target.files;
+        console.log(files);
+        var filesArr = Array.prototype.slice.call(files);
+        console.log(filesArr);
+        this.setState({ files: [...this.state.files, ...filesArr] });
+    }
+
+    listModels(modelsList) {
+        return modelsList.map(function(currentModel, i) {
+            return <ModelList model={currentModel} key={i} index = {i} />
+        })
     }
 
 
@@ -61,17 +79,22 @@ export default class sideBar extends Component {
                 open={this.state.sideBarOpen}
                 >
                     <div>
+                       <Typography variant="h7" noWrap>
+                           Models
+                       </Typography>
                     <IconButton onClick={this.handleDrawerOpen}>
-                        <ChevronRightIcon />
+                       <ChevronRightIcon />
                     </IconButton>
                     <Divider />
                     <List>
                         <ListItem>
-                        <Button variant="contained" component="label">
-                            Upload Model
-                            <input type="file" hidden id='input' />
-                        </Button>
+                            <Button variant="contained" component="label">
+                                Upload Model
+                                <input type="file" hidden id='input' onChange={this.getModel} />
+                            </Button>
                         </ListItem>
+                        <Divider />
+                        {this.listModels(this.state.files)}
                         
                     
                     </List>
