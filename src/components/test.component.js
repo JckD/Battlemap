@@ -5,8 +5,8 @@ import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 //import { STLLoader } from 'https://cdn.jsdelivr.net/npm/three@0.120.1/examples/jsm/loaders/STLLoader.js';
 import foxy from '../3Dfiles/foxy.stl';
-import dragon from '../../3Dfiles/red-dragon-adult-updated.stl';
-import wall from '../../3Dfiles/wall.stl';
+import dragon from '../3Dfiles/red-dragon-ancient-updated.stl';
+import wall from '../3Dfiles/wall.stl';
 
 
 export default class CreateQuote extends Component {
@@ -78,7 +78,7 @@ export default class CreateQuote extends Component {
             var material = new THREE.MeshPhongMaterial( { color: 0xc60b0b } );
             
             var mesh = new THREE.Mesh( geometry, material );
-            mesh.position.set( -50, 1, 50);
+            mesh.position.set( -50, 1, 200);
             mesh.rotation.x  = -90 * degree;
             mesh.rotation.z = 90 * degree
         
