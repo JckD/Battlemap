@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
@@ -59,7 +59,7 @@ export default class sideBar extends Component {
     render() {
         return (
             <>
-                <Toolbar>
+                <Toolbar disableGutters='true'>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -82,8 +82,8 @@ export default class sideBar extends Component {
                        <Typography variant="h7" noWrap>
                            Models
                        </Typography>
-                    <IconButton onClick={this.handleDrawerOpen}>
-                       <ChevronRightIcon />
+                    <IconButton onClick={this.handleDrawerOpen} edge='end'>
+                       <ChevronLeftIcon />
                     </IconButton>
                     <Divider />
                     <List>
