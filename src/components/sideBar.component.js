@@ -3,20 +3,34 @@ import { useState } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import { List, ListItem, ListItemIcon } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
 import loadModel from '../utils/modelLoader.js';
 
 const ModelList = props => (
-    <ListItem 
-    button
-    >
-        {props.model.name}
+    <ListItem >
+        <PopupState variant='popover' popupId='demo-popup=menu'>
+            {(popupState => (
+                <React.Fragment>
+                    <Button {...bindTrigger(popupState)}>
+                        {props.model.name}
+                    </Button>
+                    <Menu {...bindMenu(popupState)}>
+                        <MenuItem onClick={popupState.close}>Add to Scene</MenuItem>
+                        <MenuItem onClick={popupState.close}>Position</MenuItem>
+                        <MenuItem onClick={popupState.close}>Scale</MenuItem>
+                        <MenuItem onClick={popupState.close}>Colour</MenuItem>
+                    </Menu>
+                </React.Fragment>
+            ))}           
+        </PopupState> 
     </ListItem>
 )
 
