@@ -17,7 +17,7 @@ export default class LoadScene extends Component {
       
         this.state = {
             models : [],
-            test : props.model
+            meshes : props.meshes
         }
 
    }
@@ -25,7 +25,7 @@ export default class LoadScene extends Component {
 
     componentDidMount(){
 
-        console.log(this.state.test[0])
+   
         // Necessary for camera/plane rotation
         var degree = Math.PI/180;
 
@@ -46,7 +46,7 @@ export default class LoadScene extends Component {
             var width = window.innerWidth;
             renderer.setSize(width, height);
             camera.aspect = width / height;
-            camera.updateProjectionMatrix();
+            camera.updateProjectionMatrix()
         });
 
         // Adding controls
@@ -96,7 +96,7 @@ export default class LoadScene extends Component {
             mesh.castShadow = true;
             
             mesh.name = 'dragon'
-            //mesh.traverse(function(child){child.castShadow = true;});
+;
             scene.add( mesh );
         } );
 
@@ -112,27 +112,18 @@ export default class LoadScene extends Component {
             mesh.castShadow = true;
             
             mesh.name = 'dragon'
-            //mesh.traverse(function(child){child.castShadow = true;});
+;
             scene.add( mesh );
         } );
 
-        let newObj = this.state.test[0];
-        console.log(wall)
-        loader.load( newObj, function ( geometry ) {
-            var material = new THREE.MeshPhongMaterial( { color: 0x757575 } );
-            
-            var mesh = new THREE.Mesh( geometry, material );
-            mesh.position.set( -20, -6, 40);
-            mesh.rotation.x  = -90 * degree;
-            mesh.rotation.z = 90 * degree
+
+       
+        console.log(this.state.meshes)
+        if (this.state.meshes != undefined ) {
+            console.log('added')
+            scene.add( this.state.meshes[0])
+        }
         
-            mesh.receiveShadow = true;
-            mesh.castShadow = true;
-            
-            mesh.name = 'dragon'
-            //mesh.traverse(function(child){child.castShadow = true;});
-            scene.add( mesh );
-        })
         
         // var geometry = new THREE.BoxGeometry( 50, 50, 50 );
 
