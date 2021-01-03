@@ -7,15 +7,25 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import foxy from '../3Dfiles/foxy.stl';
 import dragon from '../3Dfiles/red-dragon-ancient-updated.stl';
 import wall from '../3Dfiles/wall.stl';
-
+import MContext from './provider.component';
 
 export default class LoadScene extends Component {
 
-   
+   constructor(props) {
+       super(props) 
+
+      
+        this.state = {
+            models : [],
+            test : props.model
+        }
+
+   }
 
 
     componentDidMount(){
 
+        console.log(this.state.test[0])
         // Necessary for camera/plane rotation
         var degree = Math.PI/180;
 
@@ -105,6 +115,24 @@ export default class LoadScene extends Component {
             //mesh.traverse(function(child){child.castShadow = true;});
             scene.add( mesh );
         } );
+
+        let newObj = this.state.test[0];
+        console.log(wall)
+        loader.load( newObj, function ( geometry ) {
+            var material = new THREE.MeshPhongMaterial( { color: 0x757575 } );
+            
+            var mesh = new THREE.Mesh( geometry, material );
+            mesh.position.set( -20, -6, 40);
+            mesh.rotation.x  = -90 * degree;
+            mesh.rotation.z = 90 * degree
+        
+            mesh.receiveShadow = true;
+            mesh.castShadow = true;
+            
+            mesh.name = 'dragon'
+            //mesh.traverse(function(child){child.castShadow = true;});
+            scene.add( mesh );
+        })
         
         // var geometry = new THREE.BoxGeometry( 50, 50, 50 );
 
@@ -164,11 +192,6 @@ export default class LoadScene extends Component {
 
         const shadowCameraHelper = new THREE.CameraHelper( spotLight.shadow.camera );
         scene.add( shadowCameraHelper );
-        
-
-
-        console.log(scene.f)
-
 
         scene.traverse( function( child ) { 
 
@@ -199,7 +222,13 @@ export default class LoadScene extends Component {
 
     render() {
         return (
-           <div ref={ref => (this.mount = ref)}/>
+            <> 
+                <div ref={ref => (this.mount = ref)}/>
+               
+            
+            
+            </>
+           
         )
     }
 }

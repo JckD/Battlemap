@@ -8,11 +8,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
-import { List, ListItem, ListItemIcon } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, Slider } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
 import loadModel from '../utils/modelLoader.js';
+import MContext from './provider.component';
+import Scene from './scene.component';
 
 const ModelList = props => (
     <ListItem >
@@ -25,8 +27,13 @@ const ModelList = props => (
                     <Menu {...bindMenu(popupState)}>
                         <MenuItem onClick={popupState.close}>Add to Scene</MenuItem>
                         <MenuItem onClick={popupState.close}>Position</MenuItem>
-                        <MenuItem onClick={popupState.close}>Scale</MenuItem>
+                        <Divider/>
+                            <MenuItem onClick={popupState.close}>Scale</MenuItem>
+                            <Slider/>
+                        <Divider/>
+                        
                         <MenuItem onClick={popupState.close}>Colour</MenuItem>
+                        <MenuItem onClick={popupState.close}>Rename</MenuItem>
                     </Menu>
                 </React.Fragment>
             ))}           
@@ -56,9 +63,9 @@ export default class sideBar extends Component {
 
     getModel(e) {
         var files = e.target.files;
-        console.log(files);
+        //console.log(files);
         var filesArr = Array.prototype.slice.call(files);
-        console.log(filesArr);
+        //console.log(filesArr);
         this.setState({ files: [...this.state.files, ...filesArr] });
     }
 
@@ -86,7 +93,7 @@ export default class sideBar extends Component {
                         BattleMap
                     </Typography>
                 </Toolbar>
-                <Drawer 
+                   <Drawer 
                 
                 variant="persistent"
                 anchor="left"
@@ -107,14 +114,16 @@ export default class sideBar extends Component {
                                 <input type="file" hidden id='input' onChange={this.getModel} />
                             </Button>
                         </ListItem>
+                        
                         <Divider />
-                        {this.listModels(this.state.files)}
+                        {this.listModels(this.state.files)} 
                         
                     
                     </List>
                     </div>
                 
                 </Drawer>
+                <Scene model={this.state.files}/>
             </>
         )
     }

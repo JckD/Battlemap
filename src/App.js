@@ -1,7 +1,8 @@
 
 import './App.css';
 import React from 'react'
-import Test from './components/scene.component';
+import Scene from './components/scene.component';
+import StateProvider from './components/provider.component';
 import { useState } from 'react';
 import SideBar from './components/sideBar.component';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -26,8 +27,11 @@ function App() {
 
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <SideBar/>
-      <Test/>
+      <StateProvider>
+        <SideBar/>
+        {/* <Scene/> */}
+      </StateProvider>
+      
     </ThemeProvider>
     
   );
