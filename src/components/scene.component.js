@@ -15,16 +15,18 @@ export default class LoadScene extends Component {
        super(props) 
 
       
+        this.loadModel = this.loadModel.bind(this); 
+
         this.state = {
             models : [],
-            meshes : props.meshes
+            //meshes : [],
         }
 
    }
 
 
     componentDidMount(){
-
+        console.log(this.props.meshes)
    
         // Necessary for camera/plane rotation
         var degree = Math.PI/180;
@@ -118,7 +120,7 @@ export default class LoadScene extends Component {
 
 
        
-        console.log(this.state.meshes)
+        
         if (this.state.meshes != undefined ) {
             console.log('added')
             scene.add( this.state.meshes[0])
@@ -211,15 +213,40 @@ export default class LoadScene extends Component {
 
     }
 
+    componentDidUpdate(prevProps) {
+        console.log(this.props.meshes)
+       // if (this.props.meshes !== prevProps)
+    }
+
+    loadModel(model) {
+
+        var file = model;
+        var loader = new STLLoader();
+        let reader = new FileReader();
+        // Necessary for camera/plane rotation
+        var degree = Math.PI/180;
+    
+        reader.onload = function ()
+        {
+            //var loader = new THREE.STLLoader();
+            // parse the .stl file
+            var material = new THREE.MeshPhongMaterial( { color: 0x757575 } );
+            var geometry = loader.parse(this.result);
+            var mesh = new THREE.Mesh(geometry, material);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+    
+            //scene.add(mesh);
+        };
+      
+        reader.readAsArrayBuffer(file[0])
+    };
+
     render() {
         return (
             <> 
-                <div ref={ref => (this.mount = ref)}/>
-               
-            
-            
+                <div ref={ref => (this.mount = ref)}/> 
             </>
-           
         )
     }
 }

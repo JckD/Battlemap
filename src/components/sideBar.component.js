@@ -57,7 +57,8 @@ export default class sideBar extends Component {
         this.state = {
             sideBarOpen : true,
             files : [],
-            meshes : []
+            
+            
         }
     }
 
@@ -70,18 +71,27 @@ export default class sideBar extends Component {
     getModel(e) {
         var files = e.target.files;
         //console.log(files);
-        var mesh = loadModel(files)
-        console.log(mesh)
+        //var mesh = loadModel(files)
+
+
+        //console.log(mesh)
 
         var filesArr = Array.prototype.slice.call(files);
         //console.log(filesArr);
-        this.setState({ files: [...this.state.files, ...filesArr], meshes : [...this.state.meshes, mesh] });
+        this.setState({ files: [...this.state.files, ...filesArr] });
+        
     }
 
     listModels(modelsList) {
+        this.updateScene();
         return modelsList.map(function(currentModel, i) {
             return <ModelList model={currentModel} key={i} index = {i} />
         })
+    }
+
+    updateScene(){
+        console.log('update')
+       // this.setState({ files : !this.state.files })
     }
 
 
@@ -131,7 +141,7 @@ export default class sideBar extends Component {
                     </div>
                 
                 </Drawer>
-                <Scene meshes={this.state.meshes}/>
+                <Scene meshes={this.state.files}/>
             </>
         )
     }
